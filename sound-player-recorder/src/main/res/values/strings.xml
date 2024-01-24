@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SoundPlayerRecorder</string>
+    <string name="song">Song:</string>
+    <string name="volume">Volume:</string>
+    <string name="audio_player_recorder">AUDIO PLAYER / RECORDER</string>
+    <string name="play">play</string>
+    <string name="pause">pause</string>
+    <string name="record">record</string>
+    <string name="rewind">rewind</string>
+    <string name="fast_forward">fast forward</string>
+    <string name="recording">Recording...</string>
+    <string name="track_time_position_format">%s of %s</string>
+    <string name="millis_to_string_format">%02d:%02d</string>
+</resources>
