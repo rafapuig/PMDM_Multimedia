@@ -80,23 +80,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //TODO: If when the focus returns to the activity it was playing, continue playing where it left off.
-        if (currentState == PlayerState.PLAYING) {
-            resumePlayback();
-        }
+
     }
 
     @Override
     protected void onPause() {
         //TODO: Pause MediaPlayer playback
-        if (mediaPlayer != null) mediaPlayer.pause();
-        super.onPause();
+
     }
 
     @Override
     protected void onDestroy() {
         // TODO: Release playback and recording managers
-        if (mediaPlayer != null) mediaPlayer.release();
-        if (mediaRecorder != null) mediaRecorder.release();
+
         super.onDestroy();
     }
 
@@ -193,9 +189,7 @@ public class MainActivity extends AppCompatActivity {
     private void onFastForwardClick() {
         // Remember that you have the current state in the attribute "currentState".
         //TODO: Position the DELTA_TIME_MS playback manager millisecond forward if in playing state.
-        if (currentState == PlayerState.PLAYING) {
-            mediaPlayer.seekTo(playbackPosition + DELTA_TIME_MS);
-        }
+
     }
 
     /**
@@ -204,9 +198,7 @@ public class MainActivity extends AppCompatActivity {
     private void onRewindButtonClick() {
         //Remember that you have the current state in the attribute "currentState".
         //TODO: Position the DELTA_TIME_MS playback manager milliseconds further back if in playing state.
-        if (currentState == PlayerState.PLAYING) {
-            mediaPlayer.seekTo(playbackPosition - DELTA_TIME_MS);
-        }
+
     }
 
 
@@ -217,15 +209,10 @@ public class MainActivity extends AppCompatActivity {
     private void onRecordButtonClick() {
         //Remember that you have the current status in the attribute "currentState"
         // TODO: If it was playing it should be paused (in any case)
-        if (currentState == PlayerState.PLAYING)
-            pausePlayback();
+
 
         //TODO: If it was recording, it will stop. If not, it will start recording.
-        if (currentState == PlayerState.RECORDING) {
-            stopRecording();
-        } else {
-            startRecording();
-        }
+
     }
 
     /**
@@ -236,29 +223,28 @@ public class MainActivity extends AppCompatActivity {
         // with 3GP format and AMR_NB encoder.
         try {
             // TODO: Check if you have permission to record audio
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (true /* change true for the actual condition */) {
                 //TODO: instantiate a MediaRecorder
-                mediaRecorder = new MediaRecorder(); //new MediaRecorder(this);
+
                 //TODO: set microphone as audio source
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+
                 //TODO: set 3GPP as output format
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+
                 //TODO: set the audio encoder to AMR_NB
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
                 //TODO: set the output file
-                mediaRecorder.setOutputFile(recordingPath);
+
                 //TODO: prepare the MediaRecorder
-                mediaRecorder.prepare();
+
                 //TODO: start capturing audio
-                mediaRecorder.start();
+
 
                 //TODO: Change player activity state to recording
-                changePlayerState(PlayerState.RECORDING);
+
                 binding.recordImageButton.setHovered(true);
             } else {
                 //TODO: request permissions to record audio
-                requestRecordAudio();
+
             }
         } catch (IOException e) {
             Toast.makeText(this,
@@ -272,8 +258,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void stopRecording() {
         //TODO: Stop the recording manager and free up resources
-        mediaRecorder.stop();
-        mediaRecorder.release();
+
 
         binding.recordImageButton.setHovered(false);
 
@@ -320,21 +305,18 @@ public class MainActivity extends AppCompatActivity {
      */
     private void playSong() {
         //TODO: Release the previous mediaPlayer (if there is one)
-        if (mediaPlayer != null) mediaPlayer.release();
+
 
         // TODO: get the index of the song from spinner position index
-        int index = binding.songsSpinner.getSelectedItemPosition();
+
 
         // TODO: Here you have to indicate a resource (song) to the manager (play)
-        MediaPlayer player = MediaPlayer.create(
-                this.getApplicationContext(),
-                songIds[index]);
+
 
         setMediaPlayer(player);
 
         //TODO: if it was playing a song, start the playback
-        if (currentState == PlayerState.PLAYING)
-            startPlayback();
+
     }
 
     /**
@@ -350,11 +332,10 @@ public class MainActivity extends AppCompatActivity {
             Uri recordingURI = Uri.fromFile(recodingFile);
 
             //TODO: Create MediaPlayer instance to play the recorded audio track
-            MediaPlayer recordingPlayer =
-                    MediaPlayer.create(this, recordingURI);
+
 
             //TODO: release the resources of the previous mediaPlayer (if any)
-            if (mediaPlayer != null) mediaPlayer.release();
+
 
             setMediaPlayer(recordingPlayer);
 
@@ -409,13 +390,13 @@ public class MainActivity extends AppCompatActivity {
         //Remember that you have the current state in the attribute "currentState".
         if (currentState == PlayerState.PAUSED) {
             //TODO: resume playback
-            resumePlayback();
+
         } else if (currentState == PlayerState.PLAYING) {
             //TODO: start playback
-            startPlayback();
+
         } else {
             //TODO: start playback
-            startPlayback();
+
         }
     }
 
@@ -424,11 +405,11 @@ public class MainActivity extends AppCompatActivity {
         switch (currentState) {
             case PLAYING:
                 //TODO: pause playback
-                pausePlayback();
+
                 break;
             case PAUSED:
                 //TODO: resume playback
-                resumePlayback();
+
                 break;
         }
     }
@@ -455,23 +436,19 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startPlayback() {
         // TODO: set looping to loop playback
-        mediaPlayer.setLooping(true);
+
 
         // TODO: set volume in right and left channels according to the volume SeekBar progress value
-        //changeVolume(binding.volumeSeekBar, binding.volumeSeekBar.getProgress());
-        //binding.volumeSeekBar.setProgress(binding.volumeSeekBar.getProgress());
-        //mediaPlayer.setVolume(1, 1);
-        setVolume((float) binding.volumeSeekBar.getProgress() / binding.volumeSeekBar.getMax());
-        //binding.volumeSeekBar.setProgress(binding.volumeSeekBar.getMax());
+
 
         // TODO: set playback position in the beginning of the audio track
-        mediaPlayer.seekTo(0);
+
 
         //TODO: start playback
-        mediaPlayer.start();
+
 
         //TODO: change state to playing
-        changePlayerState(PlayerState.PLAYING);
+
     }
 
     /**
@@ -480,10 +457,10 @@ public class MainActivity extends AppCompatActivity {
     private void pausePlayback() {
 
         // TODO: pause playback
-        mediaPlayer.pause();
+
 
         // TODO: change currentState to paused
-        changePlayerState(PlayerState.PAUSED);
+
     }
 
     /**
@@ -492,11 +469,10 @@ public class MainActivity extends AppCompatActivity {
     private void resumePlayback() {
 
         // TODO: resume paused playback
-        //mediaPlayer.seekTo(playbackPosition);
-        mediaPlayer.start();
+
 
         //TODO: Set currentState to PLAYING
-        changePlayerState(PlayerState.PLAYING);
+
     }
 
     /**
@@ -529,9 +505,9 @@ public class MainActivity extends AppCompatActivity {
         if (currentState != PlayerState.RECORDING) {
 
             //TODO: set playbackPosition to the playback position in milliseconds
-            playbackPosition = mediaPlayer.getCurrentPosition();
+            playbackPosition =
             //TODO: set the duration of the audio track in milliseconds
-            int durationInMs = mediaPlayer.getDuration();
+            int durationInMs =
 
             int max = binding.timeProgressBar.getMax();
 
