@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -123,13 +122,13 @@ public class MainActivity extends AppCompatActivity {
     private void requestRecordAudio() {
         if (shouldShowRequestPermissionRationale(
                 Manifest.permission.RECORD_AUDIO)) {
-            showContextUI();
+            showPermissionRequestDialog();
         } else {
             makeRequestRecordAudio();
         }
     }
 
-    private void showContextUI() {
+    private void showPermissionRequestDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permission Required");
         builder.setMessage("Permission is required to access the microphone and record the voice.");
